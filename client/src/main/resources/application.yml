@@ -1,0 +1,43 @@
+logging.level.org.springframework.security: DEBUG
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
+spring:
+  thymeleaf:
+    cache: false
+
+# security:
+#   oauth2:
+#     client:
+#       clientId: foo
+#       clientSecret: bar
+#       accessTokenUri: http://localhost:8899/oauth/access_token
+#       userAuthorizationUri: http://localhost:8899/oauth/authorize
+#       clientAuthenticationScheme: form
+#     resource:
+#       userInfoUri: http://localhost:8899/user
+#       preferTokenInfo: false  
+  security:  
+    oauth2:
+      client:
+        registration:
+#          google:
+#            client-id: xxx
+#            client-secret: xxx
+          ftx: 
+            client-id: foo
+            client-secret: bar
+            client-name: FTX SSO
+            authorization-grant-type: authorization_code
+            scope: read write trust
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          ftx:
+            token-uri: http://localhost:8899/oauth/token
+            authorization-uri: http://localhost:8899/oauth/authorize
+            user-info-uri: http://localhost:8899/user
+            jwk-set-uri: http://localhost:8899/oauth/token_keys
+            user-name-attribute: name
